@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+git clone https://aur.archlinux.org/${1}
+
+pushd ${1}
+makepkg -si
+popd
+
+rm -rf ${1}
