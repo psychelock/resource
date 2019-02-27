@@ -1,0 +1,58 @@
+#!/bin/bash
+# If not running interactively, don't do anything
+[ -z "$PS1" ] && return
+
+# Source global definitions
+if [ -f /etc/bashrc ]; then
+        . /etc/bashrc
+fi
+
+export SHELL=/bin/bash
+
+function get_hostname {
+  export SHORTNAME=${HOSTNAME%%.*}
+}
+
+function user_color {
+  id | grep "Admin" > /dev/null
+  RETVAL=$?
+  if [[ $RETVAL == 0 ]]; then
+    usercolor="[0;32m";
+  else
+    usercolor="[0;32m";
+  fi
+}
+
+function settitle() {
+  u=${USERNAME}
+  h="$u@${HOSTNAME}"
+  echo -ne "\e]2;$h\a\e]1;$h\a";
+}
+
+# Set directory colors
+eval `dircolors ~/.dir_colors`
+
+# Set prompt and window title
+inputcolor='[0;37m'
+cwdcolor='[0;33m'
+host_name='[1;31m'
+user_color
+PROMPT_COMMAND='settitle; get_hostname; history -a;'
+export PS1='\[\e${usercolor}\][\u]\[\e${host_name}\][${SHORTNAME}]\[\e${inputcolor}\]\[\e${cwdcolor}\][\W]\e[0m$ '
+
+# Aliases
+alias ls='ls --color'
+alias grep='grep -n --color=auto'
+alias l='ls --color=auto'
+alias ll='ls -la'
+alias lll='tree'
+alias i3lock='i3lock -i Downloads/wallpaper.png -p default -n'
+alias blue='bluetoothctl'
+alias zzz='cmatrix | lolcat'
+alias update='sudo pacman -Syyu'
+alias st="git status"
+alias pull="git pull --rebase"
+alias push="git push"
+
+xset r rate 400 80
+eval $(thefuck --alias)
