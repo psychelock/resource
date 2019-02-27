@@ -4,6 +4,7 @@
 set nocompatible
 filetype off
 
+" git clone vim vundle to access this 
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 Plugin 'VundleVim/Vundle.vim'
