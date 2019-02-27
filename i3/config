@@ -198,3 +198,9 @@ bindsym $mod+Escape exec i3lock-fancy -t LOCKED
 
 #lowest brightness
 bindsym $mod+Shift+z exec echo 5 > /sys/class/backlight/intel_backlight/brightness
+
+#Wallpaper, Network, Compton
+exec_always --no-startup-id ~/.fehbg &
+exec_always --no-startup-id nm-applet &
+exec_always --no-startup-id compton &
+
