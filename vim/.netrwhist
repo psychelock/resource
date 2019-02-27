@@ -1,0 +1,9 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhist_cnt =7
+let g:netrw_dirhist_1='/home/psychelock/.vim/bundle/nerdtree'
+let g:netrw_dirhist_2='/home/psychelock'
+let g:netrw_dirhist_3='/home/psychelock/.vim/bundle/nerdtree'
+let g:netrw_dirhist_4='/home/psychelock/.vim/bundle/nerdtree/nerdtree_plugin'
+let g:netrw_dirhist_5='/home/psychelock/.vim/bundle/nerdtree'
+let g:netrw_dirhist_6='/home/psychelock/.vim/bundle/nerdtree/autoload'
+let g:netrw_dirhist_7='/home/psychelock/.vim/bundle/nerdtree/autoload/nerdtree'

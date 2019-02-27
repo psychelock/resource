@@ -1,0 +1,184 @@
+" Psychelock vim config
+
+" Plugins managed by Vundle
+set nocompatible
+filetype off
+
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+Plugin 'VundleVim/Vundle.vim'
+Plugin 'itchyny/lightline.vim'
+Plugin 'scrooloose/nerdtree'
+Plugin 'terryma/vim-multiple-cursors'
+" All of your Plugins must be added before the following line
+call vundle#end()
+filetype plugin indent on
+
+" Sets how many lines of history VIM has to remember
+set history=500
+
+" With a map leader it's possible to do extra key combinations
+" like <leader>w saves the current file
+let mapleader = ";"
+
+" Fast saving
+nmap <leader>w :w!<cr>
+nmap <leader>wq :wq!<cr>
+nmap <leader>q :q!<cr>
+
+" Show line number
+set number
+
+" Highlight Syntax
+syntax on
+
+" Wildmenu (Shows file completion)
+set wildmenu
+
+" Shows line status
+set ruler
+set laststatus=2
+
+" Macro expansion
+set lazyredraw
+
+" Backspace to prev line
+set backspace=indent,start,eol
+set whichwrap+=<,>,h,l
+
+set noeb vb t_vb=
+au GUIEnter * set vb t_vb=
+set shiftwidth=4
+
+" Indentation
+set autoindent
+set smartindent
+set cindent
+set smarttab
+
+" Enable mouse
+set mouse=a
+
+" Word limit
+set cc=80
+set expandtab
+
+" Old Vi compatible
+set nocompatible
+
+" Regex
+set magic
+
+" Brackets
+set showmatch
+set mat=2
+
+" Extra margin to left
+set foldcolumn=1
+
+" Colorscheme
+colorscheme solarized8_flat
+
+" Visual mode
+vnoremap <silent> * :<C-u>call VisualSelection('', '')<CR>/<C-R>=@/<CR><CR>
+vnoremap <silent> # :<C-u>call VisualSelection('', '')<CR>?<C-R>=@/<CR><CR>
+
+" Highlight search
+set hlsearch
+hi Search cterm=NONE ctermfg=yellow ctermbg=red
+set incsearch
+
+" Comma + Enter to disable highlight
+map <silent> <leader><cr> :noh<cr>
+
+" Tab mapping
+map <leader>tn :tabnew<cr>
+map <leader>to :tabonly<cr>
+map <leader>tc :tabclose<cr>
+
+" Let 'cd' toggle between this and the last accessed tab
+let g:lasttab = 1
+nmap cd :exe "tabn ".g:lasttab<CR>
+au TabLeave * let g:lasttab = tabpagenr()
+
+" Return to last edit position when opening files (You want this!)
+au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
+
+" Format the status line
+set statusline=\ %{HasPaste()}%F%m%r%h\ %w\ \ CWD:\ %r%{getcwd()}%h\ \ \ Line:\ %l\ \ Column:\ %c
+
+" Delete trailing white space on save, useful for some filetypes ;)
+fun! CleanExtraSpaces()
+    let save_cursor = getpos(".")
+    let old_query = getreg('/')
+    silent! %s/\s\+$//e
+    call setpos('.', save_cursor)
+    call setreg('/', old_query)
+endfun
+
+if has("autocmd")
+    autocmd BufWritePre *.txt,*.js,*.py,*.wiki,*.sh,*.coffee :call CleanExtraSpaces()
+endif
+
+" Pressing ;ss will toggle and untoggle spell checking
+map <leader>ss :setlocal spell!<cr>
+
+" Visual selection function
+function! HasPaste()
+    if &paste
+        return 'PASTE MODE  '
+    endif
+    return ''
+endfunction
+
+function! CmdLine(str)
+    call feedkeys(":" . a:str)
+endfunction
+
+function! VisualSelection(direction, extra_filter) range
+    let l:saved_reg = @"
+    execute "normal! vgvy"
+
+    let l:pattern = escape(@", "\\/.*'$^~[]")
+    let l:pattern = substitute(l:pattern, "\n$", "", "")
+
+    if a:direction == 'gv'
+        call CmdLine("Ack '" . l:pattern . "' " )
+    elseif a:direction == 'replace'
+        call CmdLine("%s" . '/'. l:pattern . '/')
+    endif
+
+    let @/ = l:pattern
+    let @" = l:saved_reg
+endfunction
+
+" Show Whitespace
+highlight ExtraWhitespace ctermbg=red guibg=red
+match ExtraWhitespace /\s\+$/
+autocmd BufWinEnter * match ExtraWhitespace /\s\+$/
+autocmd InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
+autocmd InsertLeave * match ExtraWhitespace /\s\+$/
+autocmd BufWinLeave * call clearmatches()
+
+" Persistent Undo (undo even after closing buffer)
+try
+    set undodir=~/.vim_runtime/temp_dirs/undodir
+    set undofile
+catch
+endtry
+
+" Relative numbers
+set number relativenumber
+
+:augroup numbertoggle
+:  autocmd!
+:  autocmd BufEnter,FocusGained,InsertLeave * set relativenumber
+:  autocmd BufLeave,FocusLost,InsertEnter   * set norelativenumber
+:augroup END
+
+" Nerd tree
+nnoremap <C-f> :NERDTreeToggle<CR>
+
+" Remove whitespaces
+nnoremap <F5> :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar><CR>
+
