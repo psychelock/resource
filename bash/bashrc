@@ -47,12 +47,12 @@ alias l='ls --color=auto'
 alias ll='ls -la'
 alias lll='tree'
 alias i3lock='i3lock -i Downloads/wallpaper.png -p default -n'
-alias blue='bluetoothctl'
+alias blue="./resources/blue/blue.sh"
 alias zzz='cmatrix | lolcat'
 alias update='sudo pacman -Syyu'
 alias st="git status"
 alias pull="git pull --rebase"
 alias push="git push"
-
-xset r rate 400 80
+alias gg="shutdown now"
+xset r rate 400 60
 eval $(thefuck --alias)
