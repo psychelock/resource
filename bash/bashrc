@@ -9,46 +9,18 @@ fi
 
 export SHELL=/bin/bash
 
-function get_hostname {
-  export SHORTNAME=${HOSTNAME%%.*}
-}
+export PS1='\[\e[1;32m\][\u]\[\e[1;31m\][\h]\[\e[1;35m\][\W]\[\e[0;0m '
 
-function user_color {
-  id | grep "Admin" > /dev/null
-  RETVAL=$?
-  if [[ $RETVAL == 0 ]]; then
-    usercolor="[0;32m";
-  else
-    usercolor="[0;32m";
-  fi
-}
-
-function settitle() {
-  u=${USERNAME}
-  h="$u@${HOSTNAME}"
-  echo -ne "\e]2;$h\a\e]1;$h\a";
-}
-
-# Set directory colors
-eval `dircolors ~/.dir_colors`
-
-# Set prompt and window title
-inputcolor='[0;37m'
-cwdcolor='[0;33m'
-host_name='[1;31m'
-user_color
-PROMPT_COMMAND='settitle; get_hostname; history -a;'
-export PS1='\[\e${usercolor}\][\u]\[\e${host_name}\][${SHORTNAME}]\[\e${inputcolor}\]\[\e${cwdcolor}\][\W]\e[0m$ '
 
 # Aliases
-alias ls='ls --color'
 alias grep='grep -n --color=auto'
 alias l='ls --color=auto'
+alias ls='ls --color'
 alias ll='ls -la'
 alias lll='tree'
-alias i3lock='i3lock -i Downloads/wallpaper.png -p default -n'
-alias blue="./resources/blue/blue.sh"
-alias zzz='cmatrix | lolcat'
+alias blue="cd ~ && ./resources/scripts/blue.sh && cd -"
+alias joke="cd ~ && ./resources/scripts/joke.sh && cd $OLDPWD"
+alias zzz='cmatrix'
 alias update='sudo pacman -Syyu'
 alias st="git status"
 alias pull="git pull --rebase"
@@ -56,3 +28,6 @@ alias push="git push"
 alias gg="shutdown now"
 xset r rate 400 60
 eval $(thefuck --alias)
+
+# Print on startup
+joke
