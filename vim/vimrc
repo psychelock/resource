@@ -1,5 +1,4 @@
 " Psychelock vim config
-"testing this rsync script
 " Plugins managed by Vundle
 set nocompatible
 filetype off
