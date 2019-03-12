@@ -1,18 +1,4 @@
 " Psychelock vim config
-" Plugins managed by Vundle
-set nocompatible
-filetype off
-
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
-Plugin 'VundleVim/Vundle.vim'
-Plugin 'itchyny/lightline.vim'
-Plugin 'scrooloose/nerdtree'
-Plugin 'terryma/vim-multiple-cursors'
-Plugin 'Valloric/YouCompleteMe'
-" All of your Plugins must be added before the following line
-call vundle#end()
-filetype plugin indent on
 
 " Sets how many lines of history VIM has to remember
 set history=500
@@ -88,7 +74,7 @@ set hlsearch
 hi Search cterm=NONE ctermfg=yellow ctermbg=red
 set incsearch
 
-" Comma + Enter to disable highlight
+" SemiColon + Enter to disable highlight
 map <silent> <leader><cr> :noh<cr>
 
 " Tab mapping
@@ -96,10 +82,13 @@ map <leader>tn :tabnew<cr>
 map <leader>to :tabonly<cr>
 map <leader>tc :tabclose<cr>
 
-" Let 'cd' toggle between this and the last accessed tab
+" Let 'CD' toggle between this and the last accessed tab
 let g:lasttab = 1
-nmap cd :exe "tabn ".g:lasttab<CR>
+nmap CD :exe "tabn ".g:lasttab<CR>
 au TabLeave * let g:lasttab = tabpagenr()
+
+nnoremap cd gt
+nnoremap dc gT
 
 " Return to last edit position when opening files (You want this!)
 au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif

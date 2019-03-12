@@ -18,7 +18,9 @@ alias l='ls --color=auto'
 alias ls='ls --color'
 alias ll='ls -la'
 alias lll='tree'
-alias blue="cd ~ && ./resources/scripts/blue.sh && cd -"
+alias blue='bluetoothctl'
+alias disconnect="cd ~ ; ./resources/scripts/disconnect.sh ; cd -"
+alias connect="cd ~ ; ./resources/scripts/connect.sh ; cd -"
 alias joke="cd ~ && ./resources/scripts/joke.sh && cd $OLDPWD"
 alias zzz='cmatrix'
 alias update='sudo pacman -Syyu'
