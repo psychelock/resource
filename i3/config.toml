@@ -1,5 +1,9 @@
-theme = "solarized-dark"
 icons = "awesome"
+[theme]
+name = "solarized-dark"
+[theme.overrides]
+idle_bg = "#17202A"
+idle_fg = "#F1C40F"
 
 [[block]]
 block = "cpu"
@@ -12,6 +16,11 @@ format = "{1m}"
 
 [[block]]
 block = "sound"
+
+[[block]]
+block = "music"
+player = "spotify"
+buttons = ["play", "next"]
 
 [[block]]
 block = "battery"

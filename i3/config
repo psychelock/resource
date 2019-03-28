@@ -42,23 +42,11 @@ bindsym $mod+d exec dmenu_run
 # installed.
 # bindsym $mod+d exec --no-startup-id i3-dmenu-desktop
 
-# change focus
-bindsym $mod+j focus left
-bindsym $mod+k focus down
-bindsym $mod+l focus up
-bindsym $mod+semicolon focus right
-
 # alternatively, you can use the cursor keys:
 bindsym $mod+Left focus left
 bindsym $mod+Down focus down
 bindsym $mod+Up focus up
 bindsym $mod+Right focus right
-
-# move focused window
-bindsym $mod+Shift+j move left
-bindsym $mod+Shift+k move down
-bindsym $mod+Shift+l move up
-bindsym $mod+Shift+semicolon move right
 
 # alternatively, you can use the cursor keys:
 bindsym $mod+Shift+Left move left
@@ -194,13 +182,24 @@ bindsym XF86MonBrightnessUp exec /home/psychelock/.i3/brightness.sh up
 bindsym XF86MonBrightnessDown exec /home/psychelock/.i3/brightness.sh down
 
 #locking
-bindsym $mod+Escape exec i3lock-fancy -t LOCKED
+bindsym $mod+Escape exec i3lock-fancy
 
 #lowest brightness
 bindsym $mod+Shift+z exec echo 5 > /sys/class/backlight/intel_backlight/brightness
 
-#Wallpaper, Network, Compton
+#Wallpaper, Network, Compton, Bluetooth
 exec_always --no-startup-id ~/.fehbg &
 exec_always --no-startup-id nm-applet &
 exec_always --no-startup-id compton &
+exec_always --no-startup-id blueman-applet &
 
+#Force floating windows
+for_window [class="terminal"] floating enable
+for_window [class="Spotify"] floating enable
+for_window [class="[.]*steam[.]*"] floating enable
+for_window [window_role="pop-up"] floating enable
+
+#mouse on window
+focus_follows_mouse yes
+#leave fullscreen on pop-up
+popup_during_fullscreen leave_fullscreen

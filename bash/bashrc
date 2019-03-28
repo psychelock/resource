@@ -21,7 +21,7 @@ alias lll='tree'
 alias blue='bluetoothctl'
 alias disconnect="cd ~ ; ./resources/scripts/disconnect.sh ; cd -"
 alias connect="cd ~ ; ./resources/scripts/connect.sh ; cd -"
-alias joke="cd ~ && ./resources/scripts/joke.sh && cd $OLDPWD"
+alias joke="cd ~ && echo SHOWER-THOUGHTS | lolcat; python resources/scripts/joke/get-joke && cd $OLDPWD"
 alias zzz='cmatrix'
 alias update='sudo pacman -Syyu'
 alias st="git status"
@@ -33,3 +33,6 @@ eval $(thefuck --alias)
 
 # Print on startup
 joke
+export PGDATA="$HOME/postgres_data"
+export PGHOST="/tmp"
+export EDITOR="vim"
