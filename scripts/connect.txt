@@ -1,0 +1,4 @@
+power on
+default-agent
+connect 5C:FB:7C:08:E0:7F
+quit

@@ -1,0 +1,6 @@
+import sys, random, json
+
+randnum = random.randint(0,99);
+f = open("/home/psychelock/resources/scripts/joke/input-joke", "r");
+response = json.load(f)["data"]["children"][randnum]["data"];
+print (response["title"]);
